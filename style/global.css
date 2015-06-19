@@ -1,0 +1,39 @@
+* {margin: 0; padding: 0;}
+body {color: #333; font: 12px/1.5 '微软雅黑';}
+a {text-decoration: none;}
+ul {list-style: none;}
+/**reset end**/
+
+.tree {margin: 100px;}
+.tree li {
+	height: 18px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 0 0 0 18px;
+}
+.tree li div > i {
+	background: url(../img/plus.gif) no-repeat;
+}
+
+.tree li a > i {
+	background: url(../img/folder.gif) no-repeat;
+	margin-right: 3px;
+}
+
+.tree li div > i, .tree li a > i {
+	content: '<i></i>';
+	cursor: pointer;
+	display: inline-block;
+	font-size: 0;
+	height: 18px;
+	vertical-align: bottom;
+	width:18px;
+}
+
+.tree li:nth-last-of-type(1) div > i {
+	background: url(../img/plusbottom.gif) no-repeat;
+}
+
+.tree > li li {
+	background: url(../img/line.gif) repeat-y;
+}
