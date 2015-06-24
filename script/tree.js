@@ -2,21 +2,32 @@ window.onload = function (){
 
 	var aLi = $('Tree').getElementsByTagName('li');
 	var iLen = aLi.length;
-	var iH = aLi[0].firstChild.offsetHeight;
+	var iH = aLi[0].firstChild.offsetHeight;//闭合高度
 
 	for(var i = 0; i < iLen; i++){
-		var obj = aLi[i].firstChild.firstChild;
+		var obj = aLi[i].firstChild.firstChild;//<i>
+		aLi[i].status = false;	//状态:展开true, 闭合false
 		bind(obj, 'click', fnClick);
 	};
 
 	/**分割**/
 
 	function fnClick(){
-		setHeight(this);
+		if(this.status){
+			setHeight(this, true);//闭合
+			this.status = false;
+			this.parentNode.className = 'tree-hide';
+		}else{
+			setHeight(this, false);//展开
+			this.status = true;
+			this.parentNode.className = 'tree-show';
+		}
+		
 	};
 
-	function setHeight(obj){
-		var oNext = getNextSibling(obj.parentNode);
+	function setHeight(obj, status){
+
+		var oNext = getNextSibling(obj.parentNode);//<ul>
 
 		if(!oNext)return;
 
@@ -26,13 +37,16 @@ window.onload = function (){
 		
 		var iLen = oNChild.length;
 		var iAttrH = 0;
+		var iSum = 0;
 
 		for(var i = 0; i < iLen; i++){
 			iAttrH += oNChild[i].offsetHeight;
 		};
 
+		status ? iSum = iH : iSum = iH + iAttrH;
+
 		oNext.style.height = iAttrH + 'px';//<ul>
-		oParent.style.height = iH + iAttrH + 'px';//<li>
+		oParent.style.height = iSum + 'px';//<li>
 
 		if(oRecursion){
 			setHeight(oRecursion)
@@ -69,3 +83,7 @@ function bind(obj, event, fn){//事件绑定
 function unbind(obj, event, fn){//删除事件绑定
 	window.detachEvent ? obj.detachEvent('on'+event, fn) : obj.removeEventListener(event, fn, false);
 };
+
+function animate(obj, attr, time, fn){//运动
+	obj.timer = null;	//存放定时器
+}
