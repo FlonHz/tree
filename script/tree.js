@@ -11,7 +11,6 @@ window.onload = function (){
 	};
 
 	/**分割**/
-
 	function fnClick(){
 		if(this.status){
 			setHeight(this, true);//闭合
@@ -32,12 +31,12 @@ window.onload = function (){
 		if(!oNext)return;//不存在下一级则不执行下去
 
 		var oNChild = oNext.children;//下一个相邻对象<ul>的<li>
-		var oParent = obj.parentNode.parentNode;//当前对象的父级<ul>
+		var oParent = obj.parentNode.parentNode;//当前对象的父级<li>
 		var oRecursion = getPreviousSibling(oParent.parentNode) ? getPreviousSibling(oParent.parentNode).firstChild : null;//当前对象的父级<ul>的上一个含点击事件的对象<i>
 		
 		var iLen = oNChild.length;
 		var iAttrH = 0;//下一个相邻<ul>的高度
-		var iSum = 0;//上一级<ul>的高度
+		var iSum = 0;//上一级<li>的高度
 
 		for(var i = 0; i < iLen; i++){
 			iAttrH += oNChild[i].offsetHeight;
@@ -45,11 +44,11 @@ window.onload = function (){
 
 		status ? iSum = iH : iSum = iH + iAttrH;
 
-		/*oNext.style.height = iAttrH + 'px';//<ul>
+		oNext.style.height = iAttrH + 'px';//<ul>
 		oParent.style.height = iSum + 'px';//<li>
-		*/
-		animate(oNext, {'height':iAttrH}, 10);
-		animate(oParent, {'height':iSum}, 10);
+		
+		//animate(oNext, {'height':iAttrH}, 10);
+		//animate(oParent, {'height':iSum}, 10);
 
 		if(oRecursion){
 			setHeight(oRecursion, status)
